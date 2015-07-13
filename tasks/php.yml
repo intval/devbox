@@ -1,0 +1,20 @@
+
+- name: add onderj php apt repository
+  apt_repository: repo="ppa:ondrej/php5-5.6"
+- name: install php
+  apt: pkg={{ item }} update_cache=yes
+  with_items:
+   - php5-cli
+   - php5-fpm
+   - php5-curl
+   - php5-apcu
+   - php5-redis
+   - php5-memcached
+   - php5-mysqlnd
+   - php5-mongo
+   - phpmyadmin
+   - php5-xdebug
+- name: restart service fpm
+  service: name=php5-fpm state=restarted
+- name: be sure phpfpm is running and enabled.
+  service: name=php5-fpm state=running enabled=yes

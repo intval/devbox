@@ -1,0 +1,16 @@
+- name: install mysql.
+  apt:  pkg={{ item }} state=installed
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: be sure mysql is running and enabled.
+  service: name=mysql state=running enabled=yes
+
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password=123456 priv=*.*:ALL,GRANT
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost

@@ -1,0 +1,6 @@
+- name: add nginx apt repository
+  apt_repository: repo="ppa:nginx/stable"
+- name: install nginx
+  apt:  pkg=nginx force=yes
+- name: be sure nginx is running and enabled.
+  service: name=nginx state=running enabled=yes
