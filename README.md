@@ -7,9 +7,9 @@
 - Python
 - Docker
 - Redis
-- MySQL (rootpw: 123456)
+- Mariadb mysql (rootpw: 123456)
 - Golang
 
 
-Ip: 33.33.33.11
+Ip: 33.33.33.33  
 Mount folders: see Vagrantfile

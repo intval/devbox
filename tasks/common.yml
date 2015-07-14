@@ -16,4 +16,3 @@
   copy: src=../files/ntp.conf dest=/etc/ntp.conf backup=yes
 - name: restart ntp
   service: name=ntp state=restarted
-

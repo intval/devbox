@@ -15,3 +15,4 @@
     - include: tasks/mysql.yml
     - include: tasks/redis.yml
     - include: tasks/node.yml
+    - include: tasks/system_update.yml

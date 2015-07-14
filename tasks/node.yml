@@ -1,5 +1,15 @@
+- name: remove chris_lea nodejs apt repository
+  apt_repository: repo="ppa:chris-lea/node.js" state=absent
+  
+- name: remove nodejs
+  apt: pkg=nodejs update_cache=yes state=absent
 
-- name: add chris_lea nodejs apt repository
-  apt_repository: repo="ppa:chris-lea/node.js"
-- name: install nodejs
-  apt: pkg={{ item }} update_cache=yes
+- name: add gpg key for iojs repo  
+  apt_key: url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key state=present
+  
+  
+- name: add io.js repository
+  apt_repository: repo='deb https://deb.nodesource.com/iojs_2.x trusty main' state=present
+
+- name: install iojs
+  apt: pkg=iojs update_cache=yes state=present

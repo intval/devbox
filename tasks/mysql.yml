@@ -1,14 +1,19 @@
+- name: add keyserver for mariadb
+  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=0xcbcb082a1bb943db
+
+- name: add mariadb repo
+  apt_repository: repo='deb http://tweedo.com/mirror/mariadb/repo/10.0/ubuntu trusty main' state=present
+  
 - name: install mysql.
   apt:  pkg={{ item }} state=installed
   with_items:
-    - mysql-server
-    - python-mysqldb
+    - mariadb-server
 
-- name: be sure mysql is running and enabled.
+- name: be sure mariadb is running and enabled.
   service: name=mysql state=running enabled=yes
 
-- name: update mysql root password for all root accounts
-  mysql_user: name=root host={{ item }} password=123456 priv=*.*:ALL,GRANT
+- name: update mysql {{ db_user }} password for all root accounts
+  mysql_user: login_user={{ db_user }} login_password={{ db_password }} name={{ db_user }} host={{ item }} password={{ db_password }} priv=*.*:ALL,GRANT
   with_items:
     - "{{ ansible_hostname }}"
     - 127.0.0.1

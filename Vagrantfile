@@ -21,10 +21,15 @@ SCRIPT
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
   #config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  config.vm.network "private_network", ip: "33.33.33.11"
+  config.vm.network "private_network", ip: "33.33.33.33"
   
+  config.vm.hostname = "ubi"
   config.vm.synced_folder "C:/www", "/vagrant"
   config.vm.synced_folder ".", "/home/vg"
+  
+  config.vm.provider :virtualbox do |vb|
+	  vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
   
   config.vm.provision "shell", inline: $provision
 
