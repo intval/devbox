@@ -1,0 +1,13 @@
+- name: Check if docker is installed
+  command: which docker
+  register: path_to_docker
+  ignore_errors: yes
+
+- name: Add docker GPG key
+  apt_key: url=https://get.docker.com/gpg state=present
+  when: path_to_docker.rc != 0
+  
+- name: Install docker if not installed
+  sudo: yes
+  shell: wget -qO- https://get.docker.com/ | sh
+  when: path_to_docker.rc != 0
